@@ -83,7 +83,8 @@ expiration=30000000
 DEVSTACKEOF
 
 devstack/stack.sh
-
+unset http_proxy
+unset https_proxy
 source devstack/openrc admin admin
 
 NET_ID=$(neutron net-create multinet --shared --segments type=dict list=true \
@@ -92,7 +93,7 @@ NET_ID=$(neutron net-create multinet --shared --segments type=dict list=true \
     grep ' id ' |
     awk 'BEGIN{} {print $4} END{}')
 
-TOKEN=$(curl -s -X POST http://localhost:5000/v2.0/tokens \
+TOKEN=$(curl -s -X POST http://192.168.33.12:5000/v2.0/tokens \
     -H "Content-type: application/json" \
     -d '
         {"auth": {
@@ -105,12 +106,12 @@ TOKEN=$(curl -s -X POST http://localhost:5000/v2.0/tokens \
         }' \
     | jq -r .access.token.id)
 
-SEGMENT1_ID=$(curl -s -X GET http://localhost:9696/v2.0/segments?physical_network=physnet1\&network_id=$NET_ID \
+SEGMENT1_ID=$(curl -s -X GET http://192.168.33.12:9696/v2.0/segments?physical_network=physnet1\&network_id=$NET_ID \
     -H "Content-type: application/json" \
     -H "X-Auth-Token: $TOKEN" \
     | jq -r .segments[0].id)
 
-SEGMENT2_ID=$(curl -s -X GET http://localhost:9696/v2.0/segments?physical_network=physnet2\&network_id=$NET_ID \
+SEGMENT2_ID=$(curl -s -X GET http://192.168.33.12:9696/v2.0/segments?physical_network=physnet2\&network_id=$NET_ID \
     -H "Content-type: application/json" \
     -H "X-Auth-Token: $TOKEN" \
     | jq -r .segments[0].id)
