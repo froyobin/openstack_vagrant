@@ -16,8 +16,16 @@ Vagrant.configure(2) do |config|
   end
 
   #config.vm.synced_folder
-  config.vm.synced_folder File.expand_path("~/neutron"), "/opt/stack/neutron"
-  config.vm.synced_folder File.expand_path("~/nova"), "/opt/stack/nova"
+  #config.vm.synced_folder File.expand_path("/opt/stack"), "/opt/stack"
+  config.vm.synced_folder File.expand_path("/opt/stack/neutron"), "/opt/stack/neutron"
+  config.vm.synced_folder File.expand_path("/opt/stack/glance"), "/opt/stack/glance"
+  config.vm.synced_folder File.expand_path("/opt/stack/nova"), "/opt/stack/nova"
+  config.vm.synced_folder File.expand_path("/opt/stack/tempest"), "/opt/stack/tempest"
+  config.vm.synced_folder File.expand_path("/opt/stack/noVNC"), "/opt/stack/noVNC"
+  config.vm.synced_folder File.expand_path("/opt/stack/cinder"), "/opt/stack/cinder"
+  config.vm.synced_folder File.expand_path("/opt/stack/keystone"), "/opt/stack/keystone"
+  config.vm.synced_folder File.expand_path("/opt/stack/requirements"), "/opt/stack/requirements"
+  config.vm.synced_folder File.expand_path("/opt/stack/horizon"), "/opt/stack/horizon"
 
   # Build the common args for the setup-base.sh scripts.
   setup_base_common_args = "#{vagrant_config['allinone']['ip']} #{vagrant_config['allinone']['short_name']} " +
