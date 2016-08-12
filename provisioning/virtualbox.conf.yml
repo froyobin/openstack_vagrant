@@ -9,38 +9,38 @@ allinone:
   short_name: "allinone"
   host_name: "allinone.devstack.dev"
   ip: "192.168.33.12"
-  memory: 6144
-  cpus: 2
-  vlan_interface: "eth2"
-  physical_network: "physnet1"
-  mtu: 1500
-compute1:
-  short_name: "compute1"
-  host_name: "compute1.devstack.dev"
-  ip: "192.168.33.31"
-  memory: 1536
+  memory: 2048
   cpus: 1
   vlan_interface: "eth2"
   physical_network: "physnet1"
   mtu: 1500
+# compute1:
+#   short_name: "compute1"
+#   host_name: "compute1.devstack.dev"
+#   ip: "192.168.33.31"
+#   memory: 1536
+#   cpus: 1
+#   vlan_interface: "eth2"
+#   physical_network: "physnet1"
+#   mtu: 1500
 compute2:
   short_name: "compute2"
   host_name: "compute2.devstack.dev"
   ip: "192.168.33.32"
-  memory: 1536
+  memory: 1024
   cpus: 1
   vlan_interface: "eth3"
   physical_network: "physnet2"
   mtu: 1500
-compute3:
-  short_name: "compute3"
-  host_name: "compute3.devstack.dev"
-  ip: "192.168.33.33"
-  memory: 1536
-  cpus: 1
-  vlan_interface: "eth3"
-  physical_network: "physnet2"
-  mtu: 1500
+# compute3:
+#   short_name: "compute3"
+#   host_name: "compute3.devstack.dev"
+#   ip: "192.168.33.33"
+#   memory: 1536
+#   cpus: 1
+#   vlan_interface: "eth3"
+#   physical_network: "physnet2"
+#   mtu: 1500
 iprouter:
   short_name: "iprouter"
   host_name: "iprouter.devstack.dev"
