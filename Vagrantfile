@@ -17,9 +17,9 @@ Vagrant.configure(2) do |config|
 
   #config.vm.synced_folder
   #config.vm.synced_folder File.expand_path("/data/yubin/stack"), "/data/yubin/stack"
-  config.vm.synced_folder File.expand_path("/opt/stack/neutron"), "/opt/stack/neutron"
+  #config.vm.synced_folder File.expand_path("/opt/stack/neutron"), "/opt/stack/neutron"
   config.vm.synced_folder File.expand_path("/opt/stack/glance"), "/opt/stack/glance"
-  config.vm.synced_folder File.expand_path("/opt/stack/nova"), "/opt/stack/nova"
+  #config.vm.synced_folder File.expand_path("/opt/stack/nova"), "/opt/stack/nova"
   config.vm.synced_folder File.expand_path("/opt/stack/tempest"), "/opt/stack/tempest"
   config.vm.synced_folder File.expand_path("/opt/stack/noVNC"), "/opt/stack/noVNC"
   config.vm.synced_folder File.expand_path("/opt/stack/cinder"), "/opt/stack/cinder"
