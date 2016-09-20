@@ -76,6 +76,7 @@ router_delete_namespaces=True
 [[post-config|\$Q_DHCP_CONF_FILE]]
 [DEFAULT]
 dhcp_delete_namespaces=True
+enable_isolated_metadata=True
 
 [[post-config|\$KEYSTONE_CONF]]
 [token]
@@ -83,43 +84,3 @@ expiration=30000000
 DEVSTACKEOF
 
 devstack/stack.sh
-
-source devstack/openrc admin admin
-
-NET_ID=$(neutron net-create multinet --shared --segments type=dict list=true \
-    provider:physical_network=physnet1,provider:segmentation_id=$SEGMENTATION_ID,provider:network_type=vlan \
-    provider:physical_network=physnet2,provider:segmentation_id=$SEGMENTATION_ID,provider:network_type=vlan |
-    grep ' id ' |
-    awk 'BEGIN{} {print $4} END{}')
-
-TOKEN=$(curl -s -X POST http://localhost:5000/v2.0/tokens \
-    -H "Content-type: application/json" \
-    -d '
-        {"auth": {
-             "passwordCredentials": {
-                 "username":"admin",
-                 "password":"devstack"
-             },
-             "tenantName":"admin"
-         }
-        }' \
-    | jq -r .access.token.id)
-
-SEGMENT1_ID=$(curl -s -X GET http://localhost:9696/v2.0/segments?physical_network=physnet1\&network_id=$NET_ID \
-    -H "Content-type: application/json" \
-    -H "X-Auth-Token: $TOKEN" \
-    | jq -r .segments[0].id)
-
-SEGMENT2_ID=$(curl -s -X GET http://localhost:9696/v2.0/segments?physical_network=physnet2\&network_id=$NET_ID \
-    -H "Content-type: application/json" \
-    -H "X-Auth-Token: $TOKEN" \
-    | jq -r .segments[0].id)
-
-neutron subnet-create --ip_version 4 --name multinet-segment1-subnet $NET_ID \
-    $SEGMENT1_IPV4_CIDR --segment_id $SEGMENT1_ID
-neutron subnet-create --ip_version 6 --name ipv6-multinet-segment1-subnet $NET_ID \
-    $SEGMENT1_IPV6_CIDR --segment_id $SEGMENT1_ID
-neutron subnet-create --ip_version 4 --name multinet-segment2-subnet $NET_ID \
-    $SEGMENT2_IPV4_CIDR --segment_id $SEGMENT2_ID
-neutron subnet-create --ip_version 6 --name ipv6-multinet-segment2-subnet $NET_ID \
-    $SEGMENT2_IPV6_CIDR --segment_id $SEGMENT2_ID

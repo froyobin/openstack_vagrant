@@ -1,5 +1,8 @@
 [[local|localrc]]
-
+export http_proxy=http://9.110.190.35:8118
+export https_proxy=http://9.110.190.35:8118
+export no_proxy=127.0.0.1,9.110.190.35,192.168.33.31,192.168.33.32,192.168.33.33,192.168.33.40,192.168.33.12,10.0.2.15
+GIT_BASE=${GIT_BASE:-https://github.com}
 DEST=/opt/stack
 DATA_DIR=$DEST/data
 LOGFILE=$DEST/logs/stack.sh.log
